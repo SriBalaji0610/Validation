@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    form {
+      max-width: 400px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+    input {
+      display: block;
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+    }
+    button {
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Registration Form</h2>
+
+  <form id="registrationForm" novalidate>
+    <label>
+      Name:
+      <input type="text" id="name" />
+      <div class="error" id="nameError"></div>
+    </label>
+
+    <label>
+      Email:
+      <input type="email" id="email" />
+      <div class="error" id="emailError"></div>
+    </label>
+
+    <label>
+      Password:
+      <input type="password" id="password" />
+      <div class="error" id="passwordError"></div>
+    </label>
+
+    <button type="submit" id="submitBtn" disabled>Register</button>
+  </form>
+
+  <script>
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const passwordError = document.getElementById("passwordError");
+
+    function validateForm() {
+      let isValid = true;
+
+      // Validate Name
+      if (nameInput.value.trim() === "") {
+        nameError.textContent = "Name is required.";
+        isValid = false;
+      } else {
+        nameError.textContent = "";
+      }
+
+      // Validate Email
+      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (!emailPattern.test(emailInput.value)) {
+        emailError.textContent = "Enter a valid email address.";
+        isValid = false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      // Validate Password
+      if (passwordInput.value.length < 6) {
+        passwordError.textContent = "Password must be at least 6 characters.";
+        isValid = false;
+      } else {
+        passwordError.textContent = "";
+      }
+
+      // Enable or disable the submit button
+      submitBtn.disabled = !isValid;
+    }
+
+    nameInput.addEventListener("input", validateForm);
+    emailInput.addEventListener("input", validateForm);
+    passwordInput.addEventListener("input", validateForm);
+
+    document.getElementById("registrationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Form submitted successfully!");
+    });
+  </script>
+
+</body>
+</html>
